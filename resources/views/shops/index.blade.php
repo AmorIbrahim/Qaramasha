@@ -10,7 +10,35 @@
         لكل عاشق للكشري الأصلي، جمعنالك المحلات اللي بتقدّم تجربة مختلفة مع قرمشه…<br>
         طعْم مصري أصيل بلمسة جديدة تخلي كل لقمة مليانة نكهة، حرارة، وقرمشة لا تقاوم 🔥
     </p>
-    
+    {{-- <section class="scroll-gallery" aria-label="معرض صور قرمشة">
+        <div class="scroll-gallery__container">
+            <div class="scroll-gallery__item"><img src="/images/Toast1.jpg" alt="توست قرمشة"></div>
+            <div class="scroll-gallery__item"><img src="/images/Toast2.jpg" alt="كشري بقرمشة"></div>
+            <div class="scroll-gallery__item"><img src="/images/Toast3.jpg" alt="وجبة كشري"></div>
+            <div class="scroll-gallery__item"><img src="/images/Toast4.jpg" alt="تغليف المنتج"></div>
+            <div class="scroll-gallery__item"><img src="/images/Toast5.jpg" alt="محل قرمشة"></div>
+            <div class="scroll-gallery__item"><img src="/images/Toast6.jpg" alt="محل قرمشة"></div>
+            <div class="scroll-gallery__item"><img src="/images/Toast7.jpg" alt="محل قرمشة"></div>
+            <div class="scroll-gallery__item"><img src="/images/Toast8.jpg" alt="محل قرمشة"></div>
+        </div>
+    </section> --}}
+    <section class="scroll-gallery" aria-label="معرض صور قرمشة">
+    <button class="scroll-btn scroll-btn--left" aria-label="سحب لليسار">‹</button>
+
+    <div class="scroll-gallery__container" id="gallery-scroll">
+        <div class="scroll-gallery__item"><img src="/images/Toast1.jpg" alt="توست قرمشة"></div>
+        <div class="scroll-gallery__item"><img src="/images/Toast2.jpg" alt="كشري بقرمشة"></div>
+        <div class="scroll-gallery__item"><img src="/images/Toast3.jpg" alt="وجبة كشري"></div>
+        <div class="scroll-gallery__item"><img src="/images/Toast4.jpg" alt="تغليف المنتج"></div>
+        <div class="scroll-gallery__item"><img src="/images/Toast5.jpg" alt="محل قرمشة"></div>
+        <div class="scroll-gallery__item"><img src="/images/Toast6.jpg" alt="محل قرمشة"></div>
+        <div class="scroll-gallery__item"><img src="/images/Toast7.jpg" alt="محل قرمشة"></div>
+        <div class="scroll-gallery__item"><img src="/images/Toast8.jpg" alt="محل قرمشة"></div>
+    </div>
+    {{-- <button class="scroll-btn scroll-btn--right" aria-label="سحب لليمين">›</button> --}}
+</section>
+
+
 
     <div class="insight-banner">
         <span>📍</span>
@@ -51,24 +79,6 @@
 <p class="insight-banner" data-empty-state hidden>
     😔 للأسف مفيش نتائج بالاسم ده حالياً. جرّب تهجئة مختلفة أو اسم مختصر.
 </p>
-
-<!-- <footer class="site-footer">
-    <div>
-        <p class="site-footer__brand">Qaramasha</p>
-        <p class="site-footer__text">
-            دليل سريع لعشاق الكشري في القاهرة. نختار لك أفضل المحلات ونعرض تفاصيلها
-            بشكل بسيط علشان تختار رحلتك التالية بثقة وسهولة.
-        </p>
-    </div>
-    <nav class="site-footer__links">
-        <a href="#top">العودة للأعلى</a>
-        <a href="mailto:hello@qaramasha.com">تواصل معنا</a>
-        <a href="https://maps.app.goo.gl/" target="_blank" rel="noopener">استكشف مواقع جديدة</a>
-    </nav>
-    <p class="site-footer__copyright">
-        © {{ date('Y') }} Qaramasha. كل الحقوق محفوظة.
-    </p>
-</footer> -->
 <footer class="site-footer">
     <div>
         <p class="site-footer__brand">قرمشة</p>
@@ -84,8 +94,8 @@
             🌐 <a href="https://www.facebook.com/share/17nZYHi8qd/" target="_blank" rel="noopener">
                 صفحتنا على فيسبوك
             </a><br>
-            📞 <strong>الإدارة:</strong> <a href="tel:01112615606">01112615606</a><br>
-            ☎️ <strong>خدمة العملاء:</strong> <a href="tel:01107742345">01107742345</a>
+            📞 <strong>الإدارة:</strong> <a href="tel:201112615606">01112615606</a><br>
+            ☎️ <strong>خدمة العملاء:</strong> <a href="tel:201107742345">01107742345</a>
         </p>
     </div>
 

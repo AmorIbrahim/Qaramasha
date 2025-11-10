@@ -22,5 +22,37 @@
 
     {{-- ملف JavaScript --}}
     <script src="{{ asset('js/filter.js') }}"></script>
+    <script>
+    const gallery = document.getElementById('gallery-scroll');
+
+    // نكرر الصور عشان نعمل loop لا نهائي
+    gallery.innerHTML += gallery.innerHTML;
+
+    let scrollSpeed = 1.5; // السرعة
+    let autoScrollInterval;
+
+    function startAutoScroll() {
+    autoScrollInterval = setInterval(() => {
+        gallery.scrollLeft += scrollSpeed;
+        if (gallery.scrollLeft >= gallery.scrollWidth / 2) {
+        gallery.scrollLeft = 0;
+        }
+    }, 15);
+    }
+
+    function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+    }
+
+
+    startAutoScroll();
+
+    // لما الماوس يدخل يوقف الحركة
+    gallery.addEventListener('mouseenter', stopAutoScroll);
+    gallery.addEventListener('mouseleave', startAutoScroll);
+    </script>
+
+
+
 </body>
 </html>

@@ -328,3 +328,72 @@ a:focus-visible {
 .site-footer__contacts a:hover {
     color: #ff7d1a;
 }
+
+.scroll-gallery {
+  position: relative;
+  margin: 2rem auto;
+  padding: 1rem 0;
+  background: #fff8f3;
+  border-top: 2px solid #ffd9b3;
+  border-bottom: 2px solid #ffd9b3;
+  max-width: 1000px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.scroll-gallery__viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.scroll-gallery__container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  scroll-behavior: smooth;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 1rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 🔥 إخفاء شريط التمرير */
+.scroll-gallery__container::-webkit-scrollbar {
+  display: none;
+}
+.scroll-gallery__container {
+  -ms-overflow-style: none;  /* IE و Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.scroll-gallery__item {
+  flex: 0 0 auto;
+  width: 280px;
+  height: 180px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.scroll-gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .3s;
+}
+
+.scroll-gallery__item:hover img {
+  transform: scale(1.05);
+}
+
+
+.scroll-btn:hover {
+  background: #ff7f2a;
+}
+.scroll-btn,
+.scroll-btn--left,
+.scroll-btn--right {
+  display: none;
+}
+
