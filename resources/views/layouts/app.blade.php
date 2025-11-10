@@ -22,34 +22,39 @@
 
     {{-- ملف JavaScript --}}
     <script src="{{ asset('js/filter.js') }}"></script>
+
     <script>
-    const gallery = document.getElementById('gallery-scroll');
+        const gallery = document.getElementById('gallery-scroll');
 
-    // نكرر الصور عشان نعمل loop لا نهائي
-    gallery.innerHTML += gallery.innerHTML;
+        // نكرر الصور عشان نعمل loop لا نهائي
+        // gallery.innerHTML += gallery.innerHTML;
+        const originalHTML = gallery.innerHTML;
+        gallery.innerHTML = originalHTML + originalHTML + originalHTML+ originalHTML+ originalHTML+ originalHTML
+        + originalHTML + originalHTML+ originalHTML+ originalHTML+ originalHTML
+        + originalHTML + originalHTML+ originalHTML+ originalHTML+ originalHTML;
 
-    let scrollSpeed = 1.5; // السرعة
-    let autoScrollInterval;
+        let scrollSpeed = -1.5; // السرعة
+        let autoScrollInterval;
 
-    function startAutoScroll() {
-    autoScrollInterval = setInterval(() => {
-        gallery.scrollLeft += scrollSpeed;
-        if (gallery.scrollLeft >= gallery.scrollWidth / 2) {
-        gallery.scrollLeft = 0;
+        function startAutoScroll() {
+        autoScrollInterval = setInterval(() => {
+            gallery.scrollLeft += scrollSpeed;
+            if (gallery.scrollLeft >= gallery.scrollWidth / 2) {
+            gallery.scrollLeft = 0;
+            }
+        }, 15);
         }
-    }, 15);
-    }
 
-    function stopAutoScroll() {
-    clearInterval(autoScrollInterval);
-    }
+        function stopAutoScroll() {
+        clearInterval(autoScrollInterval);
+        }
 
 
-    startAutoScroll();
+        startAutoScroll();
 
-    // لما الماوس يدخل يوقف الحركة
-    gallery.addEventListener('mouseenter', stopAutoScroll);
-    gallery.addEventListener('mouseleave', startAutoScroll);
+        // لما الماوس يدخل يوقف الحركة
+        gallery.addEventListener('mouseenter', stopAutoScroll);
+        gallery.addEventListener('mouseleave', startAutoScroll);
     </script>
 
 

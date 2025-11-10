@@ -10,8 +10,9 @@
         لكل عاشق للكشري الأصلي، جمعنالك المحلات اللي بتقدّم تجربة مختلفة مع قرمشه…<br>
         طعْم مصري أصيل بلمسة جديدة تخلي كل لقمة مليانة نكهة، حرارة، وقرمشة لا تقاوم 🔥
     </p>
-    {{-- <section class="scroll-gallery" aria-label="معرض صور قرمشة">
-        <div class="scroll-gallery__container">
+
+    <section class="scroll-gallery" aria-label="معرض صور قرمشة">
+        <div class="scroll-gallery__container" id="gallery-scroll">
             <div class="scroll-gallery__item"><img src="/images/Toast1.jpg" alt="توست قرمشة"></div>
             <div class="scroll-gallery__item"><img src="/images/Toast2.jpg" alt="كشري بقرمشة"></div>
             <div class="scroll-gallery__item"><img src="/images/Toast3.jpg" alt="وجبة كشري"></div>
@@ -21,22 +22,7 @@
             <div class="scroll-gallery__item"><img src="/images/Toast7.jpg" alt="محل قرمشة"></div>
             <div class="scroll-gallery__item"><img src="/images/Toast8.jpg" alt="محل قرمشة"></div>
         </div>
-    </section> --}}
-    <section class="scroll-gallery" aria-label="معرض صور قرمشة">
-    <button class="scroll-btn scroll-btn--left" aria-label="سحب لليسار">‹</button>
-
-    <div class="scroll-gallery__container" id="gallery-scroll">
-        <div class="scroll-gallery__item"><img src="/images/Toast1.jpg" alt="توست قرمشة"></div>
-        <div class="scroll-gallery__item"><img src="/images/Toast2.jpg" alt="كشري بقرمشة"></div>
-        <div class="scroll-gallery__item"><img src="/images/Toast3.jpg" alt="وجبة كشري"></div>
-        <div class="scroll-gallery__item"><img src="/images/Toast4.jpg" alt="تغليف المنتج"></div>
-        <div class="scroll-gallery__item"><img src="/images/Toast5.jpg" alt="محل قرمشة"></div>
-        <div class="scroll-gallery__item"><img src="/images/Toast6.jpg" alt="محل قرمشة"></div>
-        <div class="scroll-gallery__item"><img src="/images/Toast7.jpg" alt="محل قرمشة"></div>
-        <div class="scroll-gallery__item"><img src="/images/Toast8.jpg" alt="محل قرمشة"></div>
-    </div>
-    {{-- <button class="scroll-btn scroll-btn--right" aria-label="سحب لليمين">›</button> --}}
-</section>
+    </section>
 
 
 
@@ -61,7 +47,6 @@
             <div class="shop-card__body">
                 <h2 class="shop-card__title">{{ $shop['name'] }}</h2>
                 @isset($shop['owner'])
-                    <p class="shop-card__owner">{{ $shop['owner'] }}</p>
                 @endisset
                 <p class="shop-card__address">{{ $shop['address'] }}</p>
                 <a href="{{ url('/shops/' . $shop['slug']) }}" class="shop-card__cta" aria-label="عرض تفاصيل مطعم {{ $shop['name'] }}">
