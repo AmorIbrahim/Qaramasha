@@ -310,3 +310,21 @@ a:focus-visible {
         max-width: calc((100% - 1.8rem) / 2);
     }
 }
+.site-footer__contacts {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.3rem;
+    font-size: 1rem;
+    color: #4a3f27;
+}
+
+.site-footer__contacts a {
+    color: #aa5c00;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.site-footer__contacts a:hover {
+    color: #ff7d1a;
+}
