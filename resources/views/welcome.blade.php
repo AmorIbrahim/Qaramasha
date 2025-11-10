@@ -12,7 +12,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 
-        <style>
+            <style>
             *, *::before, *::after {
                 box-sizing: border-box;
             }
@@ -229,6 +229,57 @@
                 height: 1rem;
             }
 
+            .site-footer {
+                margin-top: 2.5rem;
+                padding: 2.6rem;
+                border-radius: 22px;
+                background: rgba(45, 38, 19, 0.05);
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2rem;
+                justify-content: space-between;
+            }
+
+            .site-footer__brand {
+                font-weight: 700;
+                font-size: 1.4rem;
+                color: #2d2613;
+                margin: 0 0 0.7rem;
+            }
+
+            .site-footer__text {
+                margin: 0;
+                color: #5d5544;
+                line-height: 1.8;
+                max-width: 320px;
+            }
+
+            .site-footer__links {
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+            }
+
+            .site-footer__links a {
+                color: #aa5c00;
+                text-decoration: none;
+                font-weight: 600;
+                transition: color 0.2s ease;
+            }
+
+            .site-footer__links a:hover,
+            .site-footer__links a:focus-visible {
+                color: #ff7d1a;
+            }
+
+            .site-footer__copyright {
+                width: 100%;
+                text-align: center;
+                margin-top: 1.8rem;
+                font-size: 0.9rem;
+                color: #7a7059;
+            }
+
             @media (max-width: 720px) {
                 .page-wrapper {
                     width: calc(100% - 2.4rem);
@@ -252,6 +303,12 @@
                     flex: 0 0 100%;
                     max-width: 100%;
                 }
+                .site-footer {
+                    padding: 2rem 1.5rem;
+                }
+                .site-footer__text {
+                    max-width: 100%;
+                }
             }
 
             @media (max-width: 1200px) and (min-width: 901px) {
@@ -267,11 +324,11 @@
                     max-width: calc((100% - 1.8rem) / 2);
                 }
             }
-        </style>
+            </style>
     </head>
     <body>
         <div class="page-wrapper">
-            <header class="hero">
+            <header class="hero" id="top">
                 <span class="hero__eyebrow">دليل كشري مصر</span>
                 <h1 class="hero__title">اكتشف أشهر محلات الكشري في القاهرة وضواحيها</h1>
                 <p class="hero__subtitle">
@@ -327,22 +384,39 @@
                             >
                                 عرض التفاصيل
                                 <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                    <path
+                                        <path
                                         d="M12.5 5L7.5 10L12.5 15"
-                                        stroke="currentColor"
+                                            stroke="currentColor"
                                         stroke-width="1.8"
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
-                                    />
-                                </svg>
+                                        />
+                                    </svg>
                             </a>
-                        </div>
+                </div>
                     </article>
                 @endforeach
             </main>
             <p class="insight-banner" data-empty-state hidden>
                 😔 للأسف مفيش نتائج بالاسم ده حالياً. جرّب تهجئة مختلفة أو اسم مختصر.
             </p>
+            <footer class="site-footer">
+                <div>
+                    <p class="site-footer__brand">Qaramasha</p>
+                    <p class="site-footer__text">
+                        دليل سريع لعشاق الكشري في القاهرة. نختار لك أفضل المحلات ونعرض تفاصيلها
+                        بشكل بسيط علشان تختار رحلتك التالية بثقة وسهولة.
+                    </p>
+                </div>
+                <nav class="site-footer__links" aria-label="روابط مفيدة">
+                    <a href="#top">العودة للأعلى</a>
+                    <a href="mailto:hello@qaramasha.com">تواصل معنا</a>
+                    <a href="https://maps.app.goo.gl/" target="_blank" rel="noopener">استكشف مواقع جديدة</a>
+                </nav>
+                <p class="site-footer__copyright">
+                    © {{ date('Y') }} Qaramasha. كل الحقوق محفوظة.
+                </p>
+            </footer>
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
