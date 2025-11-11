@@ -3,6 +3,16 @@
 @section('title', 'تفاصيل ' . $shop['name'])
 
 @section('content')
+<style>
+/* Simple styles for menu thumbnails and modal */
+.menu-thumbs{display:flex;gap:0.5rem;flex-wrap:wrap}
+.menu-thumb-btn{border:0;padding:0;background:transparent;cursor:pointer}
+.menu-thumb{width:96px;height:96px;object-fit:cover;border-radius:6px;display:block;border:1px solid #eee}
+.menu-modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.75);z-index:1200;padding:1rem}
+.menu-modal__content{max-width:95%;max-height:95%;position:relative}
+.menu-modal__img{max-width:100%;max-height:100%;display:block;border-radius:6px}
+.menu-modal__close{position:absolute;top:-10px;right:-10px;background:#fff;border-radius:50%;border:0;padding:6px;cursor:pointer}
+</style>
 <!-- ← رابط العودة للرئيسية -->
 <a href="/" class="back-link">
     <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,13 +52,67 @@
             </div>
         </div>
 
-        <!-- صورة المنيو -->
+        <!-- صورة المنيو (صور مصغرة قابلة للتكبير) -->
         <div class="shop-details__section">
             <h2 class="shop-details__section-title">🍽️ المنيو</h2>
             <div class="shop-details__menu-container">
-                <img src="{{ $shop['menuImage'] }}" alt="منيو مطعم {{ $shop['name'] }}" class="shop-details__menu-image">
+                @if(!empty($shop['menuImages']) && is_array($shop['menuImages']))
+                    <div class="menu-thumbs">
+                        @foreach($shop['menuImages'] as $idx => $m)
+                            <button type="button" class="menu-thumb-btn" data-src="{{ $m }}" aria-label="عرض صورة المنيو {{ $idx + 1 }}">
+                                <img src="{{ $m }}" alt="منيو {{ $idx + 1 }}" class="menu-thumb">
+                            </button>
+                        @endforeach
+                    </div>
+                @else
+                    <p>لا يوجد منيو لعرضه حالياً.</p>
+                @endif
             </div>
         </div>
+
+        <!-- Modal لعرض الصورة المكبرة -->
+        <div id="menu-modal" class="menu-modal" style="display:none" role="dialog" aria-hidden="true">
+            <div class="menu-modal__content" role="document">
+                <button id="menu-modal-close" class="menu-modal__close" aria-label="إغلاق">✕</button>
+                <img id="menu-modal-img" class="menu-modal__img" src="" alt="صورة المنيو">
+            </div>
+        </div>
+
+        <script>
+            (function(){
+                const modal = document.getElementById('menu-modal');
+                const modalImg = document.getElementById('menu-modal-img');
+                const closeBtn = document.getElementById('menu-modal-close');
+
+                function openModal(src){
+                    modalImg.src = src;
+                    modal.style.display = 'flex';
+                    modal.setAttribute('aria-hidden','false');
+                    // focus close for accessibility
+                    closeBtn.focus();
+                }
+                function closeModal(){
+                    modal.style.display = 'none';
+                    modal.setAttribute('aria-hidden','true');
+                    modalImg.src = '';
+                }
+
+                document.querySelectorAll('.menu-thumb-btn').forEach(btn=>{
+                    btn.addEventListener('click', function(){
+                        const src = this.getAttribute('data-src');
+                        if(src) openModal(src);
+                    });
+                });
+
+                closeBtn.addEventListener('click', closeModal);
+                modal.addEventListener('click', function(e){
+                    if(e.target === modal) closeModal();
+                });
+                document.addEventListener('keydown', function(e){
+                    if(e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+                });
+            })();
+        </script>
     </div>
 </article>
 

@@ -12,17 +12,23 @@ class ShopController extends Controller
             'shortAddress' => 'المرج فرع الشارع الجديد الشرفا',
             'slug' => 'Sultan_marg',
             'image' => 'images/Sultan_marg/Sul_marg1.jpg',
-            'menuImage' => 'images/Sultan_marg/Sul_marg4.jpg',
-            'deliveryNumbers' => ['01112615606', '01107742345'],
+            // support multiple menu images
+            'menuImages' => [
+                'images/Sultan_marg/Sul_marg4.jpg',
+                'images/Sultan_marg/Sul_marg5.jpg',
+            ],
+            'deliveryNumbers' => ['01069113030', '01120205827','01144594460'],
         ],
         'Sul_alarb3en' => [
             'name' => 'كشري السلطان',
-            'fullAddress' => 'سيجال - فرع شارع الأربعين - بجوار كافيه نيو',
+            'fullAddress' => ' شارع الترول سيجال متفرع من شارع الأربعين - خلف حديقة بدر',
             'shortAddress' => 'فرع ش الأربعين - سيجال',
             'slug' => 'Sul_alarb3en',
             'image' => 'images/Sultan_Alarb3en/Sul1.jpg',
-            'menuImage' => 'images/Sultan_Alarb3en/menu.jpg',
-            'deliveryNumbers' => ['01112615606', '01107742345'],
+            'menuImages' => [
+                'images/Sultan_Alarb3en/Sul_menu.jpg',
+            ],
+            'deliveryNumbers' => ['01125169998', '01125193332','01101143687','01022001264','0221859512','01272927710'],
         ],
         'Especo' => [
             'name' => 'كشري السلطان',
@@ -30,8 +36,10 @@ class ShopController extends Controller
             'shortAddress' => 'فرع اسبيكو',
             'slug' => 'Especo',
             'image' => 'images/Especo/Sul1.jpg',
-            'menuImage' => 'images/Especo/menu.jpg',
-            'deliveryNumbers' => ['01112615606', '01107742345'],
+            'menuImages' => [
+                'images/Especo/Sul_menu.jpg',
+            ],
+            'deliveryNumbers' => ['01117501313', '01278535226','01026277130','22787666'],
         ],
         'Alorsha' => [
             'name' => 'كشري السلطان',
@@ -39,8 +47,11 @@ class ShopController extends Controller
             'shortAddress' => 'فرع شارع الورشة المرج',
             'slug' => 'Alorsha',
             'image' => 'images/Alorsha/Sul1.jpg',
-            'menuImage' => 'images/Alorsha/menu.jpg',
-            'deliveryNumbers' => ['01112615606', '01107742345'],
+            'menuImages' => [
+                'images/Alorsha/Sul_menu1.jpg',
+                'images/Alorsha/Sul_menu2.jpg',
+            ],
+            'deliveryNumbers' => ['01030881563', '01501229290','01067060709','01112993924','01112111081'],
         ],
     ];
 
@@ -65,7 +76,21 @@ class ShopController extends Controller
 
         $shop = $this->shops[$slug];
         $shop['image'] = asset($shop['image']);
-        $shop['menuImage'] = asset($shop['menuImage']);
+        // convert all menu images to full asset URLs
+        if (isset($shop['menuImages']) && is_array($shop['menuImages'])) {
+            $menuImages = [];
+            foreach ($shop['menuImages'] as $m) {
+                $menuImages[] = asset($m);
+            }
+            $shop['menuImages'] = $menuImages;
+        } else {
+            // backward-compat: if single menuImage exists, wrap it
+            if (isset($shop['menuImage'])) {
+                $shop['menuImages'] = [asset($shop['menuImage'])];
+            } else {
+                $shop['menuImages'] = [];
+            }
+        }
 
         return view('shops.show', compact('shop'));
     }
