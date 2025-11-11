@@ -82,10 +82,27 @@
             📞 <strong>الإدارة:</strong> <a href="tel:201112615606">01112615606</a><br>
             ☎️ <strong>خدمة العملاء:</strong> <a href="tel:201107742345">01107742345</a>
         </p>
+        {{-- <p class="site-footer__developer">
+             Developer
+            <strong>Amr Ebrahim</strong> 👨‍💻—
+            📱 <a href="tel:201125400593">01125400593</a>
+            | 💬 <a href="https://wa.me/201125400593" target="_blank">WhatsApp</a>
+        </p> --}}
+        <p class="site-footer__developer" dir="rtl">
+            👨‍💻 تم التطوير بواسطة
+            <strong>عمرو محمد </strong> —
+            📱 <a href="tel:201125400593">01125400593</a>
+            | 💬 <a href="https://wa.me/201125400593" target="_blank">واتساب</a>
+        </p>
+
     </div>
+
+
+
 
     <p class="site-footer__copyright">
         © {{ date('Y') }} كل الحقوق محفوظة — <strong>قرمشة</strong>.
     </p>
 </footer>
+
 @endsection

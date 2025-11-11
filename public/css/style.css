@@ -749,3 +749,28 @@ a:focus-visible {
     }
 }
 
+.site-footer__developer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #5d5544; /* نفس لون النصوص بالفوتر */
+    margin-top: 1.4rem;
+    border-top: 1px solid rgba(45, 38, 19, 0.08);
+    padding-top: 1rem;
+    line-height: 1.8;
+}
+
+.site-footer__developer strong {
+    color: #aa5c00; /* نفس درجة العناوين */
+}
+
+.site-footer__developer a {
+    color: #ff7d1a; /* نفس درجة CTA البرتقالية */
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.site-footer__developer a:hover {
+    color: #ff9f1c; /* درجة أفتح عند الهوفر */
+    text-decoration: underline;
+}
