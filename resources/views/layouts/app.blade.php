@@ -70,84 +70,59 @@
                 + originalHTML + originalHTML + originalHTML + originalHTML + originalHTML
                 + originalHTML + originalHTML + originalHTML + originalHTML + originalHTML;
 
-            let scrollSpeed = -1.5; // السرعة
-            let autoScrollInterval;
-            let isUserScrolling = false;
-            let scrollTimeout;
-            let isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            // نتحقق من نوع الجهاز وحجم الشاشة
+            const isMobile = window.innerWidth <= 768;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            
+            // على الموبايل أو الأجهزة اللي بتدعم اللمس، ما نعملش auto-scroll خالص
+            const shouldAutoScroll = !isMobile && !isTouchDevice;
 
-            function startAutoScroll() {
-                // لو المستخدم بيسكرول يدوياً، ما نبدأش الـ auto-scroll
-                if (isUserScrolling || (isTouchDevice && window.innerWidth <= 768)) {
-                    return;
-                }
-                
-                if (autoScrollInterval) return; // لو شغال خلاص، ما نضيفش interval تاني
-                
-                autoScrollInterval = setInterval(() => {
-                    if (!isUserScrolling && gallery) {
-                        gallery.scrollLeft += scrollSpeed;
-                        if (gallery.scrollLeft >= gallery.scrollWidth / 2) {
-                            gallery.scrollLeft = 0;
+            if (shouldAutoScroll) {
+                let scrollSpeed = -1.5; // السرعة
+                let autoScrollInterval;
+                let isUserScrolling = false;
+
+                function startAutoScroll() {
+                    if (autoScrollInterval || isUserScrolling) return;
+                    
+                    autoScrollInterval = setInterval(() => {
+                        if (!isUserScrolling && gallery) {
+                            gallery.scrollLeft += scrollSpeed;
+                            if (gallery.scrollLeft >= gallery.scrollWidth / 2) {
+                                gallery.scrollLeft = 0;
+                            }
                         }
-                    }
-                }, 15);
-            }
-
-            function stopAutoScroll() {
-                if (autoScrollInterval) {
-                    clearInterval(autoScrollInterval);
-                    autoScrollInterval = null;
+                    }, 15);
                 }
-            }
 
-            function handleUserScrollStart() {
-                isUserScrolling = true;
-                stopAutoScroll();
-                
-                // نخلي الـ timeout علشان نرجع نبدأ الـ auto-scroll بعد ما المستخدم يخلص
-                clearTimeout(scrollTimeout);
-            }
+                function stopAutoScroll() {
+                    if (autoScrollInterval) {
+                        clearInterval(autoScrollInterval);
+                        autoScrollInterval = null;
+                    }
+                }
 
-            function handleUserScrollEnd() {
-                // بعد ثانيتين من آخر scroll، نرجع نبدأ الـ auto-scroll
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    isUserScrolling = false;
-                    // على الموبايل، ما نبدأش الـ auto-scroll
-                    if (!isTouchDevice || window.innerWidth > 768) {
+                // نتتبع أي scroll يدوي
+                let scrollTimeout;
+                gallery.addEventListener('scroll', () => {
+                    isUserScrolling = true;
+                    stopAutoScroll();
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        isUserScrolling = false;
+                        startAutoScroll();
+                    }, 2000);
+                }, { passive: true });
+
+                // على الديسكتوب: نوقف لما الماوس يدخل
+                gallery.addEventListener('mouseenter', stopAutoScroll);
+                gallery.addEventListener('mouseleave', () => {
+                    if (!isUserScrolling) {
                         startAutoScroll();
                     }
-                }, 2000);
-            }
+                });
 
-            // على الموبايل: نوقف الـ auto-scroll لما المستخدم يلمس
-            if (isTouchDevice) {
-                gallery.addEventListener('touchstart', handleUserScrollStart, { passive: true });
-                gallery.addEventListener('touchmove', handleUserScrollStart, { passive: true });
-                gallery.addEventListener('touchend', handleUserScrollEnd, { passive: true });
-            }
-
-            // على الديسكتوب: نوقف لما الماوس يدخل
-            gallery.addEventListener('mouseenter', stopAutoScroll);
-            gallery.addEventListener('mouseleave', () => {
-                if (!isUserScrolling) {
-                    startAutoScroll();
-                }
-            });
-
-            // نتتبع أي scroll يدوي
-            let scrollTimeout2;
-            gallery.addEventListener('scroll', () => {
-                if (!isUserScrolling) {
-                    handleUserScrollStart();
-                }
-                clearTimeout(scrollTimeout2);
-                scrollTimeout2 = setTimeout(handleUserScrollEnd, 150);
-            }, { passive: true });
-
-            // نبدأ الـ auto-scroll بس على الشاشات الكبيرة
-            if (!isTouchDevice || window.innerWidth > 768) {
+                // نبدأ الـ auto-scroll
                 startAutoScroll();
             }
         }
