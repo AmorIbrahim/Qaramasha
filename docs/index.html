@@ -182,30 +182,85 @@
         })();
 
         const gallery = document.getElementById("gallery-scroll");
-        const originalHTML = gallery.innerHTML;
-        gallery.innerHTML = originalHTML + originalHTML + originalHTML + originalHTML + originalHTML + originalHTML
-            + originalHTML + originalHTML + originalHTML + originalHTML + originalHTML
-            + originalHTML + originalHTML + originalHTML + originalHTML + originalHTML;
+        
+        if (gallery) {
+            const originalHTML = gallery.innerHTML;
+            gallery.innerHTML = originalHTML + originalHTML + originalHTML + originalHTML + originalHTML + originalHTML
+                + originalHTML + originalHTML + originalHTML + originalHTML + originalHTML
+                + originalHTML + originalHTML + originalHTML + originalHTML + originalHTML;
 
-        let scrollSpeed = -1.5;
-        let autoScrollInterval;
+            let scrollSpeed = -1.5;
+            let autoScrollInterval;
+            let isUserScrolling = false;
+            let scrollTimeout;
+            let isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
-        function startAutoScroll() {
-            autoScrollInterval = setInterval(() => {
-                gallery.scrollLeft += scrollSpeed;
-                if (gallery.scrollLeft >= gallery.scrollWidth / 2) {
-                    gallery.scrollLeft = 0;
+            function startAutoScroll() {
+                if (isUserScrolling || (isTouchDevice && window.innerWidth <= 768)) {
+                    return;
                 }
-            }, 15);
-        }
+                
+                if (autoScrollInterval) return;
+                
+                autoScrollInterval = setInterval(() => {
+                    if (!isUserScrolling && gallery) {
+                        gallery.scrollLeft += scrollSpeed;
+                        if (gallery.scrollLeft >= gallery.scrollWidth / 2) {
+                            gallery.scrollLeft = 0;
+                        }
+                    }
+                }, 15);
+            }
 
-        function stopAutoScroll() {
-            clearInterval(autoScrollInterval);
-        }
+            function stopAutoScroll() {
+                if (autoScrollInterval) {
+                    clearInterval(autoScrollInterval);
+                    autoScrollInterval = null;
+                }
+            }
 
-        startAutoScroll();
-        gallery.addEventListener("mouseenter", stopAutoScroll);
-        gallery.addEventListener("mouseleave", startAutoScroll);
+            function handleUserScrollStart() {
+                isUserScrolling = true;
+                stopAutoScroll();
+                clearTimeout(scrollTimeout);
+            }
+
+            function handleUserScrollEnd() {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    isUserScrolling = false;
+                    if (!isTouchDevice || window.innerWidth > 768) {
+                        startAutoScroll();
+                    }
+                }, 2000);
+            }
+
+            if (isTouchDevice) {
+                gallery.addEventListener("touchstart", handleUserScrollStart, { passive: true });
+                gallery.addEventListener("touchmove", handleUserScrollStart, { passive: true });
+                gallery.addEventListener("touchend", handleUserScrollEnd, { passive: true });
+            }
+
+            gallery.addEventListener("mouseenter", stopAutoScroll);
+            gallery.addEventListener("mouseleave", () => {
+                if (!isUserScrolling) {
+                    startAutoScroll();
+                }
+            });
+
+            let scrollTimeout2;
+            gallery.addEventListener("scroll", () => {
+                if (!isUserScrolling) {
+                    handleUserScrollStart();
+                }
+                clearTimeout(scrollTimeout2);
+                scrollTimeout2 = setTimeout(handleUserScrollEnd, 150);
+            }, { passive: true });
+
+            if (!isTouchDevice || window.innerWidth > 768) {
+                startAutoScroll();
+            }
+        }
     </script>
 </body>
 </html>
