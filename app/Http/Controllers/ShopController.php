@@ -8,7 +8,7 @@ class ShopController extends Controller
     protected $shops = [
         'Sultan_marg' => [
             'name' => 'كشري السلطان',
-            'fullAddress' => 'المرج - فرع الشارع الجديد الشرفا - بجوار محطة بنزين سوفيانة',
+            'fullAddress' => 'المرج - فرع الشارع الجديد الشرفا ',
             'shortAddress' => 'المرج فرع الشارع الجديد الشرفا',
             'slug' => 'Sultan_marg',
             'image' => 'images/Sultan_marg/Sul_marg1.jpg',
@@ -32,7 +32,7 @@ class ShopController extends Controller
         ],
         'Especo' => [
             'name' => 'كشري السلطان',
-            'fullAddress' => 'اسبيكو - فرع الدقي - بجوار مسجد الحي',
+            'fullAddress' => 'اسبيكو ',
             'shortAddress' => 'فرع اسبيكو',
             'slug' => 'Especo',
             'image' => 'images/Especo/Sul1.jpg',
@@ -43,7 +43,7 @@ class ShopController extends Controller
         ],
         'Alorsha' => [
             'name' => 'كشري السلطان',
-            'fullAddress' => 'المرج - فرع شارع الورشة - بجوار الخدمات الحكومية',
+            'fullAddress' => 'المرج - فرع شارع الورشة ',
             'shortAddress' => 'فرع شارع الورشة المرج',
             'slug' => 'Alorsha',
             'image' => 'images/Alorsha/Sul1.jpg',
