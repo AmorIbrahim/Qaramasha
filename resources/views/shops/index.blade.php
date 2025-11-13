@@ -61,7 +61,7 @@
     @endforeach
 </main>
 
-<p class="insight-banner" data-empty-state hidden>
+<p class="insight-banner" data-empty-state hidden style="display: none;">
     😔 للأسف مفيش نتائج بالاسم ده حالياً. جرّب تهجئة مختلفة أو اسم مختصر.
 </p>
 <footer class="site-footer">

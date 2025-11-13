@@ -5,10 +5,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const cards = Array.from(document.querySelectorAll('[data-shop-card]'));
     const emptyState = document.querySelector('[data-empty-state]');
 
-    const toggleEmptyState = () => {
+    // نخفي الرسالة من الأول
+    if (emptyState) {
+        emptyState.hidden = true;
+        emptyState.style.display = 'none';
+    }
+
+    const toggleEmptyState = (searchTerm) => {
         if (!emptyState) return;
+        
+        // الرسالة تظهر بس لما:
+        // 1. المستخدم كتب حاجة (searchTerm.length > 0)
+        // 2. ومفيش نتائج ظاهرة
         const hasVisible = cards.some((card) => card.style.display !== 'none');
-        emptyState.hidden = hasVisible;
+        
+        if (searchTerm.length > 0 && !hasVisible) {
+            // تظهر الرسالة
+            emptyState.hidden = false;
+            emptyState.style.display = '';
+        } else {
+            // تخفي الرسالة
+            emptyState.hidden = true;
+            emptyState.style.display = 'none';
+        }
     };
 
     searchInput.addEventListener('input', function () {
@@ -20,6 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
             card.style.display = match ? '' : 'none';
         });
 
-        toggleEmptyState();
+        toggleEmptyState(term);
     });
 });
