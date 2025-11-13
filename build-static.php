@@ -288,18 +288,24 @@ function generateIndexHtml($shops) {
                 }, 3000);
             }
 
-            // على الموبايل: نوقف لما المستخدم يلمس
-            gallery.addEventListener("touchstart", handleUserInteraction, { passive: true });
-            gallery.addEventListener("touchmove", handleUserInteraction, { passive: true });
-            gallery.addEventListener("touchend", handleUserInteractionEnd, { passive: true });
+            // نتحقق من نوع الجهاز
+            const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+            const isMobile = window.innerWidth <= 768;
 
-            // على الديسكتوب: نوقف لما الماوس يدخل
-            gallery.addEventListener("mouseenter", stopAutoScroll);
-            gallery.addEventListener("mouseleave", () => {
-                if (!isUserScrolling) {
-                    startAutoScroll();
-                }
-            });
+            // على الموبايل: نوقف لما المستخدم يلمس
+            if (isTouchDevice || isMobile) {
+                gallery.addEventListener("touchstart", handleUserInteraction, { passive: true });
+                gallery.addEventListener("touchmove", handleUserInteraction, { passive: true });
+                gallery.addEventListener("touchend", handleUserInteractionEnd, { passive: true });
+            } else {
+                // على الديسكتوب بس: نوقف لما الماوس يدخل
+                gallery.addEventListener("mouseenter", stopAutoScroll);
+                gallery.addEventListener("mouseleave", () => {
+                    if (!isUserScrolling) {
+                        startAutoScroll();
+                    }
+                });
+            }
 
             // نتتبع أي scroll يدوي (على جميع الأجهزة)
             let scrollTimeout2;
